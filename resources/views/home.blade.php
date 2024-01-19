@@ -1,0 +1,9 @@
+@extends('layouts.app')
+@section('content')
+@guest
+    @include('landing')
+@endguest
+@auth
+@include('dashboard.admin.home')
+@endauth
+@endsection
