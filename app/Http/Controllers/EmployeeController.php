@@ -2,13 +2,16 @@
 
 namespace App\Http\Controllers;
 
+use App\Imports\UsersImport;
 use App\Models\Employee;
 use App\Models\Store;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Validation\Rule;
+use Maatwebsite\Excel\Facades\Excel;
 use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\DB;
 
@@ -113,6 +116,49 @@ class EmployeeController extends Controller
         $request->session()->flash('message', 'Password Reset!');
 
         return redirect()->route('employees.index');
+    }
+
+    public function showImportForm()
+    {
+        return view('import.form');
+    }
+
+    public function importUsers()
+    {
+        try {
+            $importedUsers = Excel::toCollection(new UsersImport(), request()->file('file'))->first();
+            Session::put('importedUsers', $importedUsers);
+
+            return view('import.preview', compact('importedUsers'));
+        } catch (\Exception $e) {
+            return redirect()->route('your.route.name')->with('error', 'Error importing users: ' . $e->getMessage());
+        }
+    }
+
+    public function saveUsers()
+    {
+        try {
+            $importedUsers = Session::get('importedUsers');
+
+            if (!$importedUsers) {
+                return redirect()->route('your.route.name')->with('error', 'No users to save. Please import users first.');
+            }
+
+            foreach ($importedUsers as $userData) {
+                User::create([
+                    'name'     => $userData['name'],
+                    'email'    => $userData['email'],
+                    'password' => bcrypt($userData['password']),
+                    'role'     => $userData['role'],
+                ]);
+            }
+
+            Session::forget('importedUsers');
+
+            return redirect()->route('your.route.name')->with('success', 'Users imported and saved successfully.');
+        } catch (\Exception $e) {
+            return redirect()->route('your.route.name')->with('error', 'Error saving users: ' . $e->getMessage());
+        }
     }
 
 

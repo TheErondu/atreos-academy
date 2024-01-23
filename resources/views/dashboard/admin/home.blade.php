@@ -7,7 +7,7 @@
              alt="instructor">
         <div class="flex mb-32pt mb-md-0">
             <h2 class="text-white mb-0">Welcome, {{ auth()->user()->name }}!</h2>
-            <p class="lead text-white-50 d-flex align-items-center">{{ auth()->user()->role }} <span class="ml-16pt d-flex align-items-center"><i class="material-icons icon-16pt mr-4pt">opacity</i> 2,300 IQ</span></p>
+            <p style="color: #dcd92a !important" class="lead text-white-50 d-flex align-items-center">email:{{ auth()->user()->email }}</p>
         </div>
         <a href=""
            class="btn btn-outline-white"></a>

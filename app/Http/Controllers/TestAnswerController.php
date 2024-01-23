@@ -67,10 +67,6 @@ class TestAnswerController extends Controller
             // Do something with the $score variable (e.g., save it to the database)
             // ...
 
-            $test = Test::find($test_id);
-            $test->update([
-                'test_score' => $score,
-            ]);
             $enrollment = Enrollment::where('user_id',$user_id)
             ->where('course_id',$question->course->id)->first();
             $course = $question->course;
@@ -78,7 +74,7 @@ class TestAnswerController extends Controller
             $enrollment->update([
                 'status' => 'completed',
                 'completed_at' => Carbon::now(),
-                'test_scrore' => $score
+                'test_score' => $score
             ]);
 
             return redirect()->route('courses.edit',$course)->with('success','Test completed! Goodluck!');

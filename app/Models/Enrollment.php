@@ -26,6 +26,7 @@ class Enrollment extends Model
         'course_id',
         'progress',
         'status',
+        'test_started',
         'completed_at',
         'test_score',
     ];

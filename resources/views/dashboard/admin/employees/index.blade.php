@@ -13,7 +13,10 @@
                     <div class="card-header" style="margin-bottom: 1.0rem;">
                         <span>Employee </span>&nbsp;
                         <a href="{{ route('employees.create') }}">Add an employee</a>
+                        &nbsp;
+                        <a href="{{ route('employees.import.form') }}">Bulk import from excel</a>
                     </div>
+
                     @if (count($employees) > 0)
 
                     <div style="overflow-y: auto; height:400px; ">

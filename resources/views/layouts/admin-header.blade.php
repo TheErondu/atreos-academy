@@ -57,7 +57,7 @@
                     <!-- // END Navbar Search -->
 
                     <div class="flex">
-                        
+                        <h3 style="color: whitesmoke;padding-top:0.7rem;">Today's date : {{date('jS F, Y H:i:s')}}</h3>
                     </div>
 
                     <!-- Navbar Menu -->

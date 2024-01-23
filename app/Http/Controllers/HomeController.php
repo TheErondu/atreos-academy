@@ -38,6 +38,8 @@ class HomeController extends Controller
 
         // Get a random quote from the database
         $quote = Quote::inRandomOrder()->first();
+        // Cache the quotes array for a day
+            Cache::put('quotes', $quotes, now()->addHours(5));
 
         return view('home', compact('quote'));
     }
@@ -61,7 +63,9 @@ class HomeController extends Controller
 
             foreach ($apiQuotes as $apiQuote) {
                 // Save each quote to the database
-                Quote::create([
+                Quote::firstOrCreate(
+                    ['quote'=>$apiQuote['quote']],
+                    [
                     'quote' => $apiQuote['quote'],
                     'author' => $apiQuote['author'],
                     'category' => $apiQuote['category'],
@@ -71,12 +75,10 @@ class HomeController extends Controller
                 $quotes[] = $apiQuote['quote'];
             }
 
-            // Cache the quotes array for a day
-            Cache::put('quotes', $quotes, now()->addDay());
         } else {
             // Log and handle the error if the request was not successful
             \Log::error('API request error: ' . $response->status());
-            abort(500, 'API request failed');
+            $quotes = Quote::inRandomOrder();
         }
 
         return $quotes;

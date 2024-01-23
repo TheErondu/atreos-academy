@@ -6,6 +6,7 @@ use App\Models\Course;
 use App\Models\Question;
 use App\Models\Test;
 use Illuminate\Http\Request;
+use Illuminate\Support\Carbon;
 
 class TestController extends Controller
 {
@@ -14,7 +15,7 @@ class TestController extends Controller
      */
     public function index()
     {
-        $tests = Test::all();
+        $tests = Test::paginate(5);
         return view('dashboard.admin.tests.index', compact('tests', ));
     }
 
@@ -56,10 +57,18 @@ class TestController extends Controller
     public function show(Test $test)
     {
         // Get a random set of 6 questions in random order, paginate by 1
-        $questions = Question::where('course_id',$test->course->id)->take(6)->inRandomOrder()->get()->paginate(1);
-       // dd($questions);
+        $questions = Question::where('course_id',$test->course->id)
+        ->where('question_type','multiple')
+        ->where('question_options' ,'!=', null)
+        ->take(6)->inRandomOrder()->get()->paginate(1);
+        $enrollment = auth()->user()->enrollments()->where('course_id', $test->course->id)->first();
+        if (!$enrollment->test_started) {
+            $enrollment->update([
+                'test_started' => Carbon::now()
+            ]);
+        }
         // Pass the data to the view
-        return view('dashboard.student.tests.show', compact('test', 'questions'));
+        return view('dashboard.student.tests.show', compact('test', 'enrollment', 'questions'));
     }
 
 

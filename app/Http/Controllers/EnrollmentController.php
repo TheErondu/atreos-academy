@@ -11,10 +11,49 @@ class EnrollmentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
-        //
+
+        $filter = $request->query('filter');
+
+        if ($filter) {
+            switch ($filter) {
+                case 'course':
+                    // Assuming you have a variable $courseId representing the course ID
+                    $enrollments = Enrollment::where('course_id', $request->query('course_id'))->paginate(5);
+                    break;
+
+                case 'user':
+                    // Assuming you have a variable $userId representing the user ID
+                    $enrollments = Enrollment::where('user_id', $request->query('user_id'))->paginate(5);
+                    break;
+
+                case 'completed':
+                    $enrollments = Enrollment::where('status', 'completed')->paginate(5);
+                    break;
+
+                case 'inProgress':
+                    $enrollments = Enrollment::where('status', 'started')
+                    ->whereNull('completed_at')->paginate(5);
+                    break;
+
+                case 'testPending':
+                    $enrollments = Enrollment::where('status', 'completed')
+                    ->whereNull('test_started')->paginate(5);
+
+                    break;
+
+                // Add more cases for other filters if needed
+
+                default:
+                $enrollments = Enrollment::paginate(5);
+            }
+        }
+        $enrollmentsCount  = $enrollments->count();
+
+        return view('dashboard.admin.enrollments.index', compact('enrollmentsCount','enrollments','filter'));
     }
+
 
     /**
      * Show the form for creating a new resource.

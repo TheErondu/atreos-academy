@@ -2,9 +2,11 @@
 
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\EnrollmentController;
 use App\Http\Controllers\LessonController;
 use App\Http\Controllers\QuestionController;
 use App\Http\Controllers\RoleController;
+use App\Http\Controllers\StatsController;
 use App\Http\Controllers\TestAnswerController;
 use App\Http\Controllers\TestController;
 use Illuminate\Support\Facades\Route;
@@ -40,4 +42,12 @@ Route::resource('questions', QuestionController::class)->except('store','update'
 Route::post('questions/store/{testId}', [App\Http\Controllers\QuestionController::class, 'store'])->name('questions.store');
 Route::put('questions/update/{question}', [App\Http\Controllers\QuestionController::class, 'update'])->name('questions.update');
 Route::get('questions/generate/{lesson}', [App\Http\Controllers\LessonController::class, 'generateQuestions'])->name('questions.generate');
+Route::resource('enrollments', EnrollmentController::class);
+Route::resource('stats', StatsController::class);
+// routes/web.php
+
+Route::get('employees/import', [App\Http\Controllers\EmployeeController::class, 'showImportForm'])->name('employees.import.form');
+Route::post('employees/import-users', [App\Http\Controllers\EmployeeController::class, 'importUsers'])->name('employees.import.users');
+Route::post('employees/save-users', [App\Http\Controllers\EmployeeController::class, 'saveUsers'])->name('employees.save.users');
+
 });

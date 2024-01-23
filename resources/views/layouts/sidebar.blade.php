@@ -54,9 +54,21 @@
                         </a>
                     </li>
                     <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="{{ route('enrollments.index') }}">
+                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">local_library</span>
+                            <span class="sidebar-menu-text">Manage Enrollments</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
                         <a class="sidebar-menu-button" href="{{route('tests.index')}}">
-                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">help</span>
+                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">library_books</span>
                             <span class="sidebar-menu-text">Manage Tests</span>
+                        </a>
+                    </li>
+                    <li class="sidebar-menu-item">
+                        <a class="sidebar-menu-button" href="{{route('stats.index')}}">
+                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">insert_chart</span>
+                            <span class="sidebar-menu-text">Stats and  Reports</span>
                         </a>
                     </li>
 

@@ -74,29 +74,7 @@
                     </div>
                     </form>
 
-                    <div class="page-separator">
-                        <div class="page-separator__text">Questions</div>
-                    </div>
 
-
-
-                </div>
-                <div class="col-md-4">
-
-                    <div class="card">
-                        <div class="card-header text-center">
-                            <a href="#" class="btn btn-accent">Save changes</a>
-                        </div>
-                        <div class="list-group list-group-flush">
-                            <div class="list-group-item d-flex">
-                                <a class="flex" href="#"><strong>Save Draft</strong></a>
-                                <i class="material-icons text-muted">check</i>
-                            </div>
-                            <div class="list-group-item">
-                                <a href="#" class="text-danger"><strong>Delete Quiz</strong></a>
-                            </div>
-                        </div>
-                    </div>
 
                 </div>
             </div>

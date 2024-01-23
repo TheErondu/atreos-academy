@@ -19,7 +19,7 @@ class CourseController extends Controller
      */
     public function index()
     {
-        $courses = Course::all();
+        $courses = Course::paginate(4);
         if (Auth::user()->hasRole('Admin')) {
             $view = 'dashboard.admin.courses.index';
         }

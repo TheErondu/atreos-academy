@@ -26,10 +26,11 @@ class LessonController extends Controller
     /**
      * Show the form for creating a new resource.
      */
-    public function create()
+    public function create(Request $request)
     {
         $courses = Course::all();
-        return view('dashboard.admin.lessons.create', compact('courses'));
+        $course = Course::find($request->query('course'));
+        return view('dashboard.admin.lessons.create', compact('courses','course'));
     }
 
     /**
@@ -50,7 +51,9 @@ class LessonController extends Controller
             $file->storeAs('public/lesson_documents/', $fileName);
             $validatedData['document'] = $fileName;
         }
-        $validatedData['video_url'] = $request->input('video_url');
+        if($request->input('video_url')){
+            $validatedData['video_url'] = $request->input('video_url');
+        }
         //dd($validatedData);
         // Create a new lesson with the validated data
         $lesson = Lesson::create($validatedData);
@@ -139,7 +142,9 @@ class LessonController extends Controller
             $file->storeAs('public/lesson_documents/', $fileName);
             $validatedData['document'] = $fileName;
         }
-        $validatedData['video_url'] = $request->input('video_url');
+        if($request->input('video_url')){
+            $validatedData['video_url'] = $request->input('video_url');
+        }
         $lesson->update($validatedData);
 
         // Redirect or respond as needed

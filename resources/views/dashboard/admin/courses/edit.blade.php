@@ -105,7 +105,7 @@
                         </div>
                         @empty
                         <p class="flex text-50 lh-1 mb-0"><small> No lessons have been  added to this course. Please click
-                            <a href="{{ route('lessons.create') }}">Here</a> to add a Lesson</small></p>
+                            <a href="{{ route('lessons.create',['course'=>$course]) }}">Here</a> to add a Lesson</small></p>
                         @endforelse
 
                     </div>
@@ -116,7 +116,7 @@
                     <div class="card">
                         <div class="list-group list-group-flush">
                             <div class="card-header text-center">
-                                <a href="{{route('lessons.create')}}" class="btn btn-outline-secondary mb-24pt mb-sm-0">Add Lessons</a>
+                                <a href="{{ route('lessons.create',['course'=>$course]) }}" class="btn btn-outline-secondary mb-24pt mb-sm-0">Add Lessons</a>
                             </div>
                             <div class="list-group-item">
                                 <a href="#" class="text-danger"><strong>Delete Course</strong></a>

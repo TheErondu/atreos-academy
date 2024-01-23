@@ -85,11 +85,11 @@
                         <div class="page-separator__text">Questions</div>
                     </div>
                     <ul class="list-group mb-40pt">
-                        @forelse ($questions as $question)
+                        @forelse ($questions as $key => $question)
                             <li class="list-group-item d-flex">
                                 <i class="material-icons text-70 icon-16pt icon--left">drag_handle</i>
                                 <div class="flex d-flex flex-column">
-                                    <div class="card-title mb-4pt">Question 2 of 2</div>
+                                    <div class="card-title mb-4pt">Question {{$key+1}}</div>
                                     <div class="card-subtitle text-70 paragraph-max mb-8pt">{!! $question->question !!}
                                     </div>
                                         <div class="d-flex">
@@ -97,16 +97,6 @@
                                         </div>
                                 </div>
                                 <span class="text-muted mx-12pt">{{$question->points}} marks</span>
-
-                                <div class="dropdown">
-                                    <a href="#" data-toggle="dropdown" data-caret="false" class="text-muted"><i
-                                            class="material-icons">more_horiz</i></a>
-                                    <div class="dropdown-menu dropdown-menu-right">
-                                        <a href="javascript:void(0)" class="dropdown-item">Edit Question</a>
-                                        <div class="dropdown-divider"></div>
-                                        <a href="javascript:void(0)" class="dropdown-item text-danger">Delete Question</a>
-                                    </div>
-                                </div>
 
                             </li>
                         @empty
