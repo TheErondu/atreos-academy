@@ -46,8 +46,8 @@ Route::resource('enrollments', EnrollmentController::class);
 Route::resource('stats', StatsController::class);
 // routes/web.php
 
-Route::get('employees/import', [App\Http\Controllers\EmployeeController::class, 'showImportForm'])->name('employees.import.form');
-Route::post('employees/import-users', [App\Http\Controllers\EmployeeController::class, 'importUsers'])->name('employees.import.users');
-Route::post('employees/save-users', [App\Http\Controllers\EmployeeController::class, 'saveUsers'])->name('employees.save.users');
+Route::get('employees/create/bulk-import', [App\Http\Controllers\EmployeeController::class, 'showImportForm'])->name('employees.import.form');
+Route::post('employees/create/import-users', [App\Http\Controllers\EmployeeController::class, 'importUsers'])->name('employees.import.users');
+Route::post('employees/create/save-users', [App\Http\Controllers\EmployeeController::class, 'saveUsers'])->name('employees.save.users');
 
 });

@@ -120,18 +120,19 @@ class EmployeeController extends Controller
 
     public function showImportForm()
     {
-        return view('import.form');
+        return view('dashboard.admin.employees.import.form');
     }
 
     public function importUsers()
     {
         try {
             $importedUsers = Excel::toCollection(new UsersImport(), request()->file('file'))->first();
+            //dd($importedUsers);
             Session::put('importedUsers', $importedUsers);
 
-            return view('import.preview', compact('importedUsers'));
+            return view('dashboard.admin.employees.import.preview', compact('importedUsers'));
         } catch (\Exception $e) {
-            return redirect()->route('your.route.name')->with('error', 'Error importing users: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['Error'=> 'Error importing users: ' . $e->getMessage()]);
         }
     }
 
@@ -141,23 +142,24 @@ class EmployeeController extends Controller
             $importedUsers = Session::get('importedUsers');
 
             if (!$importedUsers) {
-                return redirect()->route('your.route.name')->with('error', 'No users to save. Please import users first.');
+                return redirect()->back()->with('error', 'No users to save. Please import users first.');
             }
 
             foreach ($importedUsers as $userData) {
-                User::create([
+               $user = User::create([
                     'name'     => $userData['name'],
                     'email'    => $userData['email'],
                     'password' => bcrypt($userData['password']),
                     'role'     => $userData['role'],
                 ]);
+                $user->assignRole($userData['role']);
             }
 
             Session::forget('importedUsers');
 
-            return redirect()->route('your.route.name')->with('success', 'Users imported and saved successfully.');
+            return redirect()->route('employees.index')->with('success', 'Users imported and saved successfully.');
         } catch (\Exception $e) {
-            return redirect()->route('your.route.name')->with('error', 'Error saving users: ' . $e->getMessage());
+            return redirect()->back()->withErrors(['Error'=> 'Error importing users: ' . $e->getMessage()]);
         }
     }
 

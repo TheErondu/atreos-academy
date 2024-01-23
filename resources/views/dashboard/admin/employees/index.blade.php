@@ -11,10 +11,9 @@
             <div class="col-12">
                 <div class="card table-card">
                     <div class="card-header" style="margin-bottom: 1.0rem;">
-                        <span>Employee </span>&nbsp;
-                        <a href="{{ route('employees.create') }}">Add an employee</a>
-                        &nbsp;
-                        <a href="{{ route('employees.import.form') }}">Bulk import from excel</a>
+                        <a href="{{ route('employees.create') }}">&nbsp;<a href="{{ route('employees.import.form') }}"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">person_add</span>Add an employee</a>
+
+                        <a href="{{ route('employees.import.form') }}">&nbsp;&nbsp;<span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">group_add</span>Bulk import from excel</a>
                     </div>
 
                     @if (count($employees) > 0)
@@ -32,9 +31,10 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($employees as $employee)
+                                @foreach ($employees as $key => $employee)
                                     <tr>
-                                        <td><a href="{{ route('employees.edit', $employee->id) }}">View</a></td>
+                                        <td>{{$key+1}}</td>
+                                        <td><a href="{{ route('employees.edit', $employee->id) }}"> <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">mode_edit</span></a></td>
                                         <td>{{ $employee->name }}</td>
                                         <td>{{ $employee->email }}</td>
                                         <td>{{ $employee->role }}</td>
