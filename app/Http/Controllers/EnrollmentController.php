@@ -50,7 +50,7 @@ class EnrollmentController extends Controller
             }
         }
 
-        return view('dashboard.admin.enrollments.index', compact('enrollmentsCount','enrollments','filter'));
+        return view('dashboard.admin.enrollments.index', compact('enrollments','filter'));
     }
 
 
