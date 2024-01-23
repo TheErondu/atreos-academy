@@ -15,6 +15,7 @@ class EnrollmentController extends Controller
     {
 
         $filter = $request->query('filter');
+        $enrollments = Enrollment::paginate(5);
 
         if ($filter) {
             switch ($filter) {
