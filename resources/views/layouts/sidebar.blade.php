@@ -5,7 +5,7 @@
             <!-- Sidebar Content -->
 
             <a href="index.html" class="sidebar-brand sidebar-brand-dark bg-primary-pickled-bluewood">
-                <img src="http://127.0.0.1:8000/images/logo/atreos-logo.png" class="img-fluid" alt="logo"
+                <img src="{{asset('images/logo/atreos-logo.png')}}" class="img-fluid" alt="logo"
                     style="height: 64px; width: 165px;">
             </a>
             @can('take courses')

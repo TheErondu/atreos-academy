@@ -49,7 +49,6 @@ class EnrollmentController extends Controller
                 $enrollments = Enrollment::paginate(5);
             }
         }
-        $enrollmentsCount  = $enrollments->count();
 
         return view('dashboard.admin.enrollments.index', compact('enrollmentsCount','enrollments','filter'));
     }
