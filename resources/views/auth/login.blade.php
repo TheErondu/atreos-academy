@@ -71,11 +71,6 @@
                                                     <a class="btn btn-link" href="{{ route('password.request') }}">
                                                         {{ __('Forgot Your Password?') }}
                                                     </a>
-                                                    <br>
-                                                    <span style="color: blue"> {{ __('Dont have an account?') }} </span> <a
-                                                        class="btn btn-link" href="{{ route('register') }}">
-                                                        {{ __('Register') }}
-                                                    </a>
                                                 @endif
                                             </div>
                                         </div>
