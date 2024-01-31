@@ -4,7 +4,7 @@
     <link type="text/css" href="{{ asset('css/quill.css') }}" rel="stylesheet">
     <!-- Select2 -->
     <link type="text/css" href="{{ asset('vendor/select2/select2.min.css') }}" rel="stylesheet">
-    <link type="text/css" href="{{ asset('css/select2.css"') }}'" rel="stylesheet">
+    <link type="text/css" href="{{ asset('css/select2.css') }}" rel="stylesheet">
 @endpush
 @section('content')
     <div class="pt-32pt">
@@ -50,6 +50,18 @@
                     <form id="create-course-form" method="post" action="{{ route('courses.store') }}" enctype="multipart/form-data">
                         @method('POST')
                         @csrf
+                        <div class="form-group">
+                            <label class="form-label"
+                                   for="select01">Assign Course to  Specific Roles </label>
+                            <select id="select01"
+                                    data-toggle="select" multiple
+                                    class="form-control" name="assigned_roles[]">
+                                    @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}">
+                                        {{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                        </div>
                         <label class="form-label">Course title</label>
                         <div class="form-group mb-24pt">
                             <input type="text" name="title" class="form-control form-control-lg"
@@ -154,4 +166,6 @@
         }
     }
     </script>
+           <script src="{{asset('vendor/select2/select2.min.js')}}"></script>
+           <script src="{{asset('js/select2.js')}}"></script>
 @endpush

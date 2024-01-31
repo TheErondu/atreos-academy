@@ -5,28 +5,17 @@
             <div class="col-12">
                 <div class="card-opaque">
                     <div class="card-header" style="background-color: #272727;">
-                        <h5 class="card-title" style="color: white;">Add Role</h5>
+                        <h5 class="card-title" style="color: white;">Add Permission</h5>
 
                     </div>
 
                     <div class="card-body">
 
-                    {!! Form::open(array('route' => 'roles.store','method'=>'POST')) !!}
+                    {!! Form::open(array('route' => 'permissions.store','method'=>'POST')) !!}
                     <div class="row">
                         <div class="mb-3">
                                 <strong>Name:</strong>
                                 {!! Form::text('name', null, array('placeholder' => 'Name','class' => 'form-control')) !!}
-                        </div>
-                        <div class="col-xs-12 col-sm-12 col-md-12">
-                            <div class="form-group">
-                                <strong>Permission: </strong>
-                                <br/>
-                                @foreach($permission as $value)
-                                    <label>{{ Form::checkbox('permission[]', $value->name, false, array('class' => 'name')) }}
-                                    {{ $value->name }}</label>
-                                <br/>
-                                @endforeach
-                            </div>
                         </div>
                         <div class="col-xs-12 col-sm-12 col-md-12 text-center">
                             <button type="submit" class="btn btn-primary">Submit</button>

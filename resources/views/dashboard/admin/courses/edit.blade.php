@@ -4,7 +4,7 @@
     <link type="text/css" href="{{ asset('css/quill.css') }}" rel="stylesheet">
     <!-- Select2 -->
     <link type="text/css" href="{{ asset('vendor/select2/select2.min.css') }}" rel="stylesheet">
-    <link type="text/css" href="{{ asset('css/select2.css"') }}'" rel="stylesheet">
+    <link type="text/css" href="{{ asset('css/select2.css') }}" rel="stylesheet">
 @endpush
 @section('content')
     <div class="pt-32pt">
@@ -47,6 +47,17 @@
                     <form id="edit-course-form" method="post" action="{{ route('courses.update',$course) }}" enctype="multipart/form-data">
                         @method('PUT')
                         @csrf
+                        <div class="form-group">
+                            <label class="form-label">Assign to a particular Role</label>
+                            <br>
+                            <select class="form-control js-example-basic-single" multiple name="assigned_roles[]">
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}" {{ in_array($role->id, explode(',', $course->assigned_roles)) ? 'selected' : '' }}>
+                                        {{ $role->name }}</option>
+                                @endforeach
+                            </select>
+                            <small class="form-text">*courses that have not been assigned to any role will not be available to Users</small>
+                        </div>
                     <label class="form-label">Course title</label>
                     <div class="form-group mb-24pt">
                         <input type="text" name="title" class="form-control form-control-lg" placeholder="Course title"
@@ -182,5 +193,10 @@
             reader.readAsDataURL(input.files[0]);
         }
     }
+    </script>
+     <script>
+        $(document).ready(function() {
+            $('.js-example-basic-single').select2();
+        });
     </script>
 @endpush

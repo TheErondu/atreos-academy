@@ -88,7 +88,6 @@ class RoleController extends Controller
         $role = Role::find($id);
         $role->name = $request->input('name');
         $role->save();
-
         $role->syncPermissions($request->input('permission'));
 
         return redirect()->back()->with('success','Role updated successfully');

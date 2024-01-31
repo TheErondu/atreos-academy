@@ -6,59 +6,59 @@
     <script src="{{ asset('js/datatables.min.js') }}" defer></script>
 @endpush
 @section('content')
-                <div class="card table-card">
-                    <div class="card-header" style="margin-bottom: 1.0rem;">
-                        <span>Manage Roles </span> &nbsp; <a href="{{route('roles.create')}}">Add a new role</a>
-                    </div>
+    <div class="card table-card">
+        <div class="card-header" style="margin-bottom: 1.0rem;">
+            <span>Manage Roles </span> &nbsp; <a href="{{ route('roles.create') }}">Add a new role</a> or <a
+                href="{{ route('permissions.index') }}">Add a new permission</a>
+        </div>
 
-                    @if (count($roles) > 0)
-                    <div style="overflow-y: auto; height:400px; ">
-                            <table id="datatables-buttons" class="table table-bordered datatable dtr-inline" cellspacing="0" width="100%">
-                                <thead>
-                                    <tr>
-                                        <th>No</th>
-                                        <th>Name</th>
-                                        <th width="280px">Action</th>
-                                    </tr>
-                                </thead>
-                                <tbody>
-                                    @foreach ($roles as $key => $role)
-                                        <tr>
-                                            <td>{{ ++$i }}</td>
-                                            <td>{{ $role->name }}</td>
-                                            <td>
-                                                {{-- <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a> --}}
-                                                @can('manage roles')
-                                                    <a class="btn btn-primary"
-                                                        href="{{ route('roles.edit', $role->id) }}">Edit</a>
-                                                    {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline']) !!}
-                                                    {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
-                                                    {!! Form::close() !!}
-                                                @endcan
-                                            </td>
-                                        </tr>
-                                    @endforeach
-                                </tbody>
-                            </table>
-                    </div>
-                        </div>
-                        <div class="row justify-content-center">
-                            <div class="col-6">
-                                {!! $roles->render('dashboard.admin.roles.paginate') !!}
-                            </div>
-                        </div>
-                    @else
+        @if (count($roles) > 0)
+            <div style="overflow-y: auto; height:400px;">
+                <table id="datatables-buttons" class="table table-bordered datatable dtr-inline" cellspacing="0"
+                    width="100%">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Name</th>
+                            <th width="280px">Action</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($roles as $key => $role)
+                            <tr>
+                                <td>{{ ++$i }}</td>
+                                <td>{{ $role->name }}</td>
+                                <td>
+                                    {{-- <a class="btn btn-info" href="{{ route('roles.show',$role->id) }}">Show</a> --}}
+                                    @can('manage roles')
+                                        <a class="btn btn-primary" href="{{ route('roles.edit', $role->id) }}">Edit</a>
+                                        {!! Form::open(['method' => 'DELETE', 'route' => ['roles.destroy', $role->id], 'style' => 'display:inline']) !!}
+                                        {!! Form::submit('Delete', ['class' => 'btn btn-danger']) !!}
+                                        {!! Form::close() !!}
+                                    @endcan
+                                </td>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+    </div>
+    <div class="row justify-content-center">
+        <div class="col-6">
+            {!! $roles->render('dashboard.admin.roles.paginate') !!}
+        </div>
+    </div>
+@else
+    <div class="card-body card-black">
+        <p>No Roles Have Been Added yet, Click <a href="{{ route('roles.create') }}" data-toggle="tooltip" title=""
+                data-original-title="Add Roles">Here</a> to add
+            Roles
+        <p>
+        <p><a class="btn btn-primary" href="{{ route('roles.create') }}">Add Roles</a>
+        </p>
 
-                            <div class="card-body card-black">
-                                <p>No Roles Have Been Added yet, Click <a href="{{ route('roles.create') }}"
-                                        data-toggle="tooltip" title="" data-original-title="Add Roles">Here</a> to add
-                                    Roles
-                                <p>
-                                <p><a class="btn btn-primary" href="{{ route('roles.create') }}">Add Roles</a>
-                                </p>
-
-                        </div>
-                    @endif
+    </div>
+    @endif
 @endsection
 @section('javascript')
     <script>
@@ -88,14 +88,14 @@
             })
         });
     </script>
-     <script>
+    <script>
         document.addEventListener("DOMContentLoaded", function() {
-			// Datatables with Buttons
-			var datatablesButtons = $("#datatables-buttons").DataTable({
-				responsive: true,
-                fixedHeader:true,
-                paginate:false,
-			});
+            // Datatables with Buttons
+            var datatablesButtons = $("#datatables-buttons").DataTable({
+                responsive: true,
+                fixedHeader: true,
+                paginate: false,
+            });
 
             /* =========================================================================================== */
             /* ============================ BOOTSTRAP 3/4 EVENT ========================================== */

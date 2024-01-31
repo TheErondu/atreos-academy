@@ -6,6 +6,7 @@ use App\DTOs\ProgressDTO;
 use App\Globals\EnrollmentGlobals;
 use App\Models\Course;
 use App\Models\Enrollment;
+use App\Models\Role;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -22,9 +23,13 @@ class CourseController extends Controller
         $courses = Course::paginate(4);
         if (Auth::user()->hasRole('Admin')) {
             $view = 'dashboard.admin.courses.index';
+            $courses = Course::paginate(4);
         }
-        if (Auth::user()->hasRole('Staff')) {
+        else {
             $view = 'dashboard.student.courses.index';
+            $userRoleId = Role::where('name',Auth::user()->role)->get()->pluck('id');
+           // dd($userRoleId);
+            $courses = Course::whereIn('assigned_roles', $userRoleId)->get();
         }
         return view($view, compact('courses'));
     }
@@ -34,7 +39,8 @@ class CourseController extends Controller
      */
     public function create()
     {
-        return view('dashboard.admin.courses.create');
+        $roles = Role::all();
+        return view('dashboard.admin.courses.create',compact('roles'));
     }
 
     /**
@@ -46,7 +52,12 @@ class CourseController extends Controller
             'title' => 'required|max:255',
             'description' => 'required',
             'poster' => 'required|image|mimes:jpeg,jpg,png|max:2048', // Max file size: 2MB
+            'assigned_roles' => 'required'
         ]);
+
+        if (!empty($request->input('assigned_roles'))) {
+            $validatedData['assigned_roles'] = implode(",", $request->input('assigned_roles'));
+        }
 
         // Handle file upload
         $prefix = substr(Str::slug($request->input('title'), '_'), 0, 20);
@@ -56,9 +67,6 @@ class CourseController extends Controller
             $file->storeAs('public/course_posters/', $fileName);
             $validatedData['poster'] = $fileName;
         }
-        // dd($validatedData);
-
-
         // Create a new course with the validated data
         $course = Course::create($validatedData);
 
@@ -80,7 +88,8 @@ class CourseController extends Controller
     public function edit(Request $request, Course $course)
     {
         if (Auth::user()->hasRole('Admin')) {
-            return view('dashboard.admin.courses.edit', compact('course'));
+            $roles = Role::all();
+            return view('dashboard.admin.courses.edit', compact('course','roles'));
 
         }
         if (Auth::user()->hasRole('Staff')) {
@@ -135,6 +144,9 @@ class CourseController extends Controller
 
             // Update the poster attribute
             $validatedData['poster'] = $fileName;
+        }
+        if (!empty($request->input('assigned_roles'))) {
+            $validatedData['assigned_roles'] = implode(",", $request->input('assigned_roles'));
         }
 
         // Update the course with the validated data

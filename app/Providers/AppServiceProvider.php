@@ -31,8 +31,7 @@ class AppServiceProvider extends ServiceProvider
         }
 
         Paginator::useBootstrapFive();
-
-
+        
         Collection::macro('paginate', function($perPage, $total = null, $page = null, $pageName = 'page'): LengthAwarePaginator {
             $page = $page ?: LengthAwarePaginator::resolveCurrentPage($pageName);
 

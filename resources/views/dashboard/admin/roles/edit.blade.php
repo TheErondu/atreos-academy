@@ -5,7 +5,7 @@
             <div class="col-12">
                 <div class="card-opaque">
                     <div class="card-header" style="background-color: #272727;">
-                        <h5 class="card-title" style="color: white;">Add Department</h5>
+                        <h5 class="card-title" style="color: white;">Edit Role</h5>
 
                     </div>
                     <div class="card-body">
