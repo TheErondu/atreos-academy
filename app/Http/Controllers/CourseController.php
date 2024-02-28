@@ -23,7 +23,7 @@ class CourseController extends Controller
         $courses = Course::paginate(4);
         if (Auth::user()->hasRole('Admin')) {
             $view = 'dashboard.admin.courses.index';
-            $courses = Course::paginate(4);
+            $courses = Course::orderBy('id', 'desc')->paginate(4);
         }
         else {
             $view = 'dashboard.student.courses.index';
