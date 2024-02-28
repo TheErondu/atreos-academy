@@ -144,7 +144,7 @@
         <script>
             var quill = new Quill('#description', {
                 theme: 'snow',
-                placeholder: 'Course description',
+                placeholder: 'Lesson content',
             });
 
         quill.on('text-change', function() {

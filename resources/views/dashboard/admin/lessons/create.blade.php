@@ -18,9 +18,6 @@
                     <ol class="breadcrumb p-0 m-0">
                         <li class="breadcrumb-item"><a href="{{ route('home') }}">Home</a></li>
 
-                        <li class="breadcrumb-item"><a href="{{ route('courses.index') }}">Courses</a></li>
-
-                        <li class="breadcrumb-item"><a href="{{ route('courses.edit',$course) }}">{{\Illuminate\Support\Str::limit($course->title, 60, '...')}}</a></li>
                         <li class="breadcrumb-item">Add Lesson</a></li>
                     </ol>
 
@@ -77,8 +74,14 @@
                             <div id="document-preview" class="mt-2"></div>
                         </div>
                         <div class="form-group mb-32pt">
-                            <label class="form-label">Description</label>
-                            <textarea class="form-control" name="content" id="" rows="3"></textarea>
+                            <label class="form-label">Content</label>
+
+                            <div style="height: 150px;" class="mb-0" id="content">
+
+                            </div>
+                            <input type="hidden" name="content" id="quill-html">
+
+                            <small class="form-text text-muted">Shortly describe this lesson.</small>
                         </div>
 
                     </form>
@@ -134,9 +137,9 @@
     <script src="{{ asset('vendor/select2/select2.min.js') }}"></script>
     <script src="{{ asset('js/select2.js') }}"></script>
     <script>
-        var quill = new Quill('#description', {
+        var quill = new Quill('#content', {
             theme: 'snow',
-            placeholder: 'Lesson description',
+            placeholder: 'Lesson content',
         });
 
         quill.on('text-change', function() {
