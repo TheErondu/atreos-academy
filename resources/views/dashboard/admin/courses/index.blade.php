@@ -43,7 +43,7 @@
 
                     <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary js-overlay mdk-reveal js-mdk-reveal "
                         data-partial-height="44" data-toggle="popover" data-trigger="click">
-                        <a href="instructor-edit-course.html" class="js-image" data-position="">
+                        <a href="{{route('courses.edit',$course->id)}}" class="js-image" data-position="">
                             <img height="150px" src="{{ asset('storage/course_posters/' . $course->poster) }}" alt="course">
                             <span class="overlay__content align-items-start justify-content-start">
                                 <span class="overlay__action card-body d-flex align-items-center">
@@ -76,7 +76,7 @@
                                 <div class="card-title mb-0">{{ $course->title }}</div>
                             </div>
                         </div>
-                        <p class="my-16pt text-70">{!! $course->description !!}</p>
+                        <p class="my-16pt text-70">{!! Illuminate\Support\Str::limit($course->description, 60, '...') !!}</p>
                         <hr>
                         <div class="mb-16pt">
                             <strong>Lessons:</strong>
