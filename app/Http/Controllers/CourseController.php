@@ -60,11 +60,13 @@ class CourseController extends Controller
         }
 
         // Handle file upload
-        $prefix = substr(Str::slug($request->input('title'), '_'), 0, 20);
         if ($request->hasFile('poster')) {
+            $prefix = substr(Str::slug($request->input('title'), '_'), 0, 20);
+
             $file = $request->file('poster');
             $fileName = $prefix . '-' . 'poster' . '.' . $file->getClientOriginalExtension();
             $file->storeAs('public/course_posters/', $fileName);
+            // Update the poster attribute
             $validatedData['poster'] = $fileName;
         }
         // Create a new course with the validated data
@@ -135,12 +137,13 @@ class CourseController extends Controller
 
             $file = $request->file('poster');
             $fileName = $prefix . '-' . 'poster' . '.' . $file->getClientOriginalExtension();
-            $file->storeAs('public/course_posters/', $fileName);
-
-            // Remove old poster file (optional)
-            if ($course->poster) {
+             // Remove old poster file (optional)
+             if ($course->poster) {
                 Storage::delete('public/course_posters/' . $course->poster);
             }
+            $file->storeAs('public/course_posters/', $fileName);
+
+
 
             // Update the poster attribute
             $validatedData['poster'] = $fileName;

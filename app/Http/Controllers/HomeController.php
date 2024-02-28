@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Quote;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Cache;
 use Illuminate\Support\Facades\Http;
@@ -51,7 +52,8 @@ class HomeController extends Controller
         // Specify the category
         $category = 'education';
 
-        // Make the API request using Guzzle HTTP client
+        try{
+            // Make the API request using Guzzle HTTP client
         $response = Http::withHeaders([
             'X-Api-Key' => 'eksmmd+/4dhnNbiJWWtZHw==H64P8En010RVvV4D',
         ])->get('https://api.api-ninjas.com/v1/quotes?category='.$category);
@@ -79,6 +81,10 @@ class HomeController extends Controller
             // Log and handle the error if the request was not successful
             \Log::error('API request error: ' . $response->status());
             $quotes = Quote::inRandomOrder();
+        }
+        }
+        catch(Exception $e){
+            \Log::error('error:'.$e);
         }
 
         return $quotes;
