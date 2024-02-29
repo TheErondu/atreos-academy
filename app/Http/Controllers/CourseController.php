@@ -29,7 +29,7 @@ class CourseController extends Controller
             $view = 'dashboard.student.courses.index';
             $userRoleId = Role::where('name',Auth::user()->role)->get()->pluck('id');
            // dd($userRoleId);
-            $courses = Course::whereIn('assigned_roles', $userRoleId)->get();
+            $courses = Course::orderBy('id', 'desc')->whereIn('assigned_roles', $userRoleId)->paginate(4);
         }
         return view($view, compact('courses'));
     }
