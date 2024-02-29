@@ -66,7 +66,7 @@
 
                         @if ($lesson->document)
                             <iframe
-                                src="http://docs.google.com/gview?url={{ asset('storage/lesson_documents/' . $lesson->document) }}&embedded=true"
+                                src="https://docs.google.com/gview?url={{ asset('storage/lesson_documents/' . $lesson->document) }}&embedded=true"
                                 style="width:600px; height:400px;" frameborder="0">
                             </iframe>
                         @else
