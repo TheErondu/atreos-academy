@@ -58,7 +58,7 @@ class EmployeeController extends Controller
         $employee->save();
         $request->session()->flash('message', 'Successfully added User');
 
-        return redirect()->route('dashboard.admin.employees.index');
+        return redirect()->route('employees.index');
     }
 
 
