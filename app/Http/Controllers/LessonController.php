@@ -68,7 +68,8 @@ class LessonController extends Controller
     public function show(Request $request, Lesson $lesson)
     {
         $enrollment = Enrollment::find($request->query('enrollment'));
-        return view('dashboard.student.lessons.show', compact('lesson', 'enrollment'));
+        $adobe_pdf_embed_key = config('app.adobe_pdf_embed_key');
+        return view('dashboard.student.lessons.show', compact('lesson', 'enrollment','adobe_pdf_embed_key'));
     }
 
     public function completeLesson(Request $request, Enrollment $enrollment)
