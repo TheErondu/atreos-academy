@@ -30,6 +30,7 @@ return [
     */
 
     'env' => env('APP_ENV', 'production'),
+    'adobe_pdf_embed_key' => env('ADOBE_PDF_EMBED_API_KEY',''),
 
     /*
     |--------------------------------------------------------------------------
