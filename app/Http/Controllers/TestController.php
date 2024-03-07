@@ -34,6 +34,7 @@ class TestController extends Controller
     public function store(Request $request)
     {
         $validatedData = $request->validate([
+            'test_score' => 'required',
             'instructions' => 'required',
             'duration_in_minutes' => 'required',
             'course_id' => 'required|exists:courses,id', // Make sure the course_id exists in the courses table
@@ -88,6 +89,7 @@ class TestController extends Controller
     public function update(Request $request, Test $test)
     {
         $validatedData = $request->validate([
+            'test_score' => 'required',
             'instructions' => 'required',
             'duration_in_minutes' => 'required',
             'course_id' => 'required|exists:courses,id', // Make sure the course_id exists in the courses table

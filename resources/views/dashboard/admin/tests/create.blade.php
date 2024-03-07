@@ -66,7 +66,11 @@
                     </div>
                     <div class="form-group mb-0">
                         <label class="form-label"> Duration in minutes</label>
-                        <input required type="number" name="duration_in_minutes" class="form-control" placeholder="Test title">
+                        <input required type="number" name="duration_in_minutes" class="form-control" placeholder="Test duration">
+                    </div>
+                    <div class="form-group mb-0">
+                        <label class="form-label"> Test Score</label>
+                        <input required type="number" required name="test_score" class="form-control" placeholder="Test score">
                     </div>
                     <hr>
                     <div class="text-center">

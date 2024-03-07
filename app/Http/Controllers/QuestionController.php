@@ -37,8 +37,8 @@ class QuestionController extends Controller
             'answer' => 'required',
         ]);
 
-        if($validatedData['question_options']!==null){
-        //    dd($validatedData['question_options']);
+        if ($request->input('question_options')) {
+            $validatedData['question_options'] = $request->input('question_options');
         }
 
         // dd($validatedData);

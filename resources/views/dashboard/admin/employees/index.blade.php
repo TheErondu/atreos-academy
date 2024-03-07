@@ -11,7 +11,7 @@
             <div class="col-12">
                 <div class="card table-card">
                     <div class="card-header" style="margin-bottom: 1.0rem;">
-                        <a href="{{ route('employees.create') }}">&nbsp;<a href="{{ route('employees.import.form') }}"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">person_add</span>Add an employee</a>
+                        <a href="{{ route('employees.create') }}"><span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">person_add</span>Add an employee</a>
 
                         <a href="{{ route('employees.import.form') }}">&nbsp;&nbsp;<span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">group_add</span>Bulk import from excel</a>
                     </div>

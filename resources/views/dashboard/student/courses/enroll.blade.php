@@ -39,6 +39,7 @@
                 </div>
                 @endif
                 @if (enrollmentData($enrollment)->allLessonsCompleted && $enrollment->status!=="completed")
+                @if ($enrollment->course->test!=null)
                 <div class="flex mr-2">
                     <div class="flex mr-2">
                         <a href="{{route('tests.show',$enrollment->course->test->id)}}" style="color: white !important;background-color:green" class="btn btn-light btn-sm">
@@ -46,6 +47,8 @@
                         </a>
                     </div>
                 </div>
+                @else
+                @endif
                 @elseif ($enrollment->status=="completed")
                 <div class="flex mr-2">
                     <div class="flex mr-2">
@@ -75,6 +78,9 @@
                                 </div>
                                 @if (enrollmentData($enrollment, $lesson)->lessonData->completedDate!==null)
                                 <a href="{{route('lessons.show',['lesson'=>$lesson,'enrollment'=>$enrollment])}}" form="create-course-form" type="submit" class="btn btn-outline-secondary mb-24pt mb-sm-0">Review lesson
+                                </a>
+                                @elseif (enrollmentData($enrollment, $lesson)->lessonData->startDate!==null)
+                                <a href="{{ route('lessons.start', ['enrollment' => $enrollment, 'lessonId' => $lesson->id]) }}" form="create-course-form" type="submit" class="btn btn-outline-secondary mb-24pt mb-sm-0">Continue lesson
                                 </a>
                                 @else
                                 <a href="{{ route('lessons.start', ['enrollment' => $enrollment, 'lessonId' => $lesson->id]) }}" form="create-course-form" type="submit" class="btn btn-outline-secondary mb-24pt mb-sm-0">Start lesson

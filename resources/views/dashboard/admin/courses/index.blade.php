@@ -92,16 +92,11 @@
                         </div>
 
                         <div class="row align-items-center">
-                            <div class="col-auto">
-                                <div class="d-flex align-items-center mb-4pt">
-                                    <span class="material-icons icon-16pt text-50 mr-4pt">play_circle_outline</span>
-                                    <p class="flex text-50 lh-1 mb-0"><small>{{ $course->lessons->count() }} {{ Str::plural('lesson', $course->lessons->count()) }}</small>
-                                    </p>
-                                </div>
-                            </div>
+
                             <div class="col text-right">
                                 <a href="{{ route('courses.edit', $course->id) }}" class="btn btn-primary">Edit course</a>
                             </div>
+                           
                         </div>
 
                     </div>

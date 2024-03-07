@@ -14,7 +14,7 @@
 
                     <!-- Navbar Brand -->
 
-                    <a href="index.html"
+                    <a href="{{route('main')}}"
                        class="navbar-brand mr-16pt d-lg-none">
 
                         <span class="avatar avatar-sm navbar-brand-icon mr-0 mr-lg-8pt">

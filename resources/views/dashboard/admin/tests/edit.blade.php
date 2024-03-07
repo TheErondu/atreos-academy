@@ -73,7 +73,12 @@
                         <div class="form-group mb-0">
                             <label class="form-label"> Duration in minutes</label>
                             <input required type="number" name="duration_in_minutes"
-                                value="{{ $test->duration_in_minutes }}" class="form-control" placeholder="Test title">
+                                value="{{ $test->duration_in_minutes }}" class="form-control" placeholder="Test duration">
+                        </div>
+                        <div class="form-group mb-0">
+                            <label class="form-label"> Test score</label>
+                            <input required type="number" name="test_score"
+                                value="{{ $test->test_score }}" class="form-control" placeholder="Test score">
                         </div>
                         <hr>
                         <div class="text-center">

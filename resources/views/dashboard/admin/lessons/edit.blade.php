@@ -110,7 +110,7 @@
                                 <a href="{{route('questions.generate',$lesson)}}" class="text-danger"><strong>Generate Questions</strong></a>
                             </div> --}}
                             <div class="list-group-item">
-                                <a href="#" class="text-danger"><strong>Delete Lesson</strong></a>
+                                <a href="{{route('lessons.destroy',$lesson)}}" class="text-danger"><strong>Delete Lesson</strong></a>
                             </div>
                         </div>
                     </div>

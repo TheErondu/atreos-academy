@@ -37,7 +37,7 @@
 
                 <div class="card card-sm card--elevated p-relative o-hidden overlay overlay--primary js-overlay mdk-reveal js-mdk-reveal "
                     data-partial-height="44" data-toggle="popover" data-trigger="click">
-                    <a href="instructor-edit-course.html" class="js-image" data-position="">
+                    <a href="#" class="js-image" data-position="">
                         <img height="150px" src="{{ asset('storage/course_posters/' . $course->poster) }}" alt="course">
                         <span class="overlay__content align-items-start justify-content-start">
                             <span class="overlay__action card-body d-flex align-items-center">

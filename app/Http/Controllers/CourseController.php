@@ -7,6 +7,7 @@ use App\Globals\EnrollmentGlobals;
 use App\Models\Course;
 use App\Models\Enrollment;
 use App\Models\Role;
+use App\Models\TestAnswer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Auth;
@@ -24,11 +25,10 @@ class CourseController extends Controller
         if (Auth::user()->hasRole('Admin')) {
             $view = 'dashboard.admin.courses.index';
             $courses = Course::orderBy('id', 'desc')->paginate(4);
-        }
-        else {
+        } else {
             $view = 'dashboard.student.courses.index';
-            $userRoleId = Role::where('name',Auth::user()->role)->get()->pluck('id');
-           // dd($userRoleId);
+            $userRoleId = Role::where('name', Auth::user()->role)->get()->pluck('id');
+            // dd($userRoleId);
             $courses = Course::orderBy('id', 'desc')->whereIn('assigned_roles', $userRoleId)->paginate(4);
         }
         return view($view, compact('courses'));
@@ -40,7 +40,7 @@ class CourseController extends Controller
     public function create()
     {
         $roles = Role::all();
-        return view('dashboard.admin.courses.create',compact('roles'));
+        return view('dashboard.admin.courses.create', compact('roles'));
     }
 
     /**
@@ -91,7 +91,7 @@ class CourseController extends Controller
     {
         if (Auth::user()->hasRole('Admin')) {
             $roles = Role::all();
-            return view('dashboard.admin.courses.edit', compact('course','roles'));
+            return view('dashboard.admin.courses.edit', compact('course', 'roles'));
 
         }
         if (Auth::user()->hasRole('Staff')) {
@@ -114,7 +114,7 @@ class CourseController extends Controller
                 $data
             );
 
-            return view('dashboard.student.courses.enroll', compact('enrollment','course'));
+            return view('dashboard.student.courses.enroll', compact('enrollment', 'course'));
         }
 
     }
@@ -137,8 +137,8 @@ class CourseController extends Controller
 
             $file = $request->file('poster');
             $fileName = $prefix . '-' . 'poster' . '.' . $file->getClientOriginalExtension();
-             // Remove old poster file (optional)
-             if ($course->poster) {
+            // Remove old poster file (optional)
+            if ($course->poster) {
                 Storage::delete('public/course_posters/' . $course->poster);
             }
             $file->storeAs('public/course_posters/', $fileName);
@@ -165,6 +165,15 @@ class CourseController extends Controller
      */
     public function destroy(Course $course)
     {
-        //
+        // dd($course->test);
+        if ($course->test != null) {
+            TestAnswer::where('test_id', $course->test->id)->delete();
+        }
+        $course->enrollments()->delete();
+        $course->questions()->delete();
+        $course->test()->delete();
+        $course->lessons()->delete();
+        $course->delete();
+        return redirect()->route('courses.index')->with('success', 'Course deleted successfully.');
     }
 }

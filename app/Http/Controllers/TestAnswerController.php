@@ -2,10 +2,12 @@
 
 namespace App\Http\Controllers;
 
+use App\DTOs\NotificationDetails;
 use App\Models\Enrollment;
 use App\Models\Question;
 use App\Models\Test;
 use App\Models\TestAnswer;
+use App\Notifications\EnrollmentCompleted;
 use Illuminate\Http\Request;
 use Illuminate\Support\Carbon;
 
@@ -38,6 +40,7 @@ class TestAnswerController extends Controller
         $test_id = $question->course->test->id;
         $question_id = $question->id;
 
+
         // Save the user's answer
         TestAnswer::firstOrCreate(
             ['user_id' => $user_id, 'test_id' => $test_id, 'question_id' => $question_id],
@@ -60,7 +63,7 @@ class TestAnswerController extends Controller
                 $userAnswer = $answers->where('question_id', $questionId)->first();
 
                 if ($userAnswer && $testQuestion->answer == $userAnswer->answer) {
-                    $score += 10;
+                    $score += $question->points;
                 }
             }
 
@@ -76,6 +79,16 @@ class TestAnswerController extends Controller
                 'completed_at' => Carbon::now(),
                 'test_score' => $score
             ]);
+
+            $notificationDetails = new NotificationDetails(
+                'Congratulations!',
+                'You have successfully completed the test.',
+                'View Results',
+                '/test-results',
+                'Your Score: ' . $enrollment->test_score . '/' . $question->course->test->test_score
+            );
+
+            auth()->user()->notify(new EnrollmentCompleted($notificationDetails));
 
             return redirect()->route('courses.edit',$course)->with('success','Test completed! Goodluck!');
         } else {

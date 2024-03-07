@@ -92,7 +92,8 @@
                     </form>
                     <hr>
                         <button href="#" form="edit-course-form" type="submit" class="btn btn-accent">Save changes
-                        </button>
+                        </button> &nbsp;<a href="{{route('courses.index')}}" class="btn btn-outline-secondary">Cancel
+                        </a>
                         <br>
                         <br>
                     <div class="page-separator">
@@ -130,10 +131,16 @@
                                 <a href="{{ route('lessons.create',['course'=>$course]) }}" class="btn btn-outline-secondary mb-24pt mb-sm-0">Add Lessons</a>
                             </div>
                             <div class="list-group-item">
-                                <a href="#" class="text-danger"><strong>Delete Course</strong></a>
+                                <button type="submit" form="delete-form" onclick="return confirm('Are you sure?, all related enrollments, questions, lessons, tests and answers will be removed!')" class="btn btn-outline-danger"><strong>Delete Course</strong></button>
                             </div>
                         </div>
                     </div>
+
+                    <form action="{{ route('courses.destroy', $course->id) }}" id="delete-form" method="POST">
+                        @method('DELETE')
+                        @csrf
+
+                    </form>
 
                     {{-- <div class="page-separator">
                     <div class="page-separator__text">Video</div>

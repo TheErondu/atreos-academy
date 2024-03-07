@@ -1,13 +1,12 @@
 <div class="mdk-drawer js-mdk-drawer" id="default-drawer">
     <div class="mdk-drawer__content">
         <div class="sidebar sidebar-light sidebar-light-dodger-blue sidebar-left" data-perfect-scrollbar>
-
             <!-- Sidebar Content -->
-
-            <a href="index.html" class="sidebar-brand sidebar-brand-dark bg-primary-pickled-bluewood">
+            <a href="{{route('main')}}" class="sidebar-brand sidebar-brand-dark bg-primary-pickled-bluewood">
                 <img src="{{asset('images/logo/atreos-logo.png')}}" class="img-fluid" alt="logo"
                     style="height: 64px; width: 165px;">
             </a>
+            
             @can('take courses')
                 <div class="sidebar-heading">Student</div>
                 <ul class="sidebar-menu">
@@ -38,15 +37,18 @@
                     </li> --}}
                 </ul>
             @endcan
+            @canany(['manage courses','manage enrollments','manage tests','manage stats'])
             <div class="sidebar-heading">Instructor</div>
             <ul class="sidebar-menu">
-
                 <li class="sidebar-menu-item">
                     <a class="sidebar-menu-button">
                         <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">school</span>
                         <span class="sidebar-menu-text">Instructor Dashboard</span>
                     </a>
                 </li>
+            @endcanany
+
+
                 @can('manage courses')
                     <li class="sidebar-menu-item">
                         <a class="sidebar-menu-button" href="{{ route('courses.index') }}">
