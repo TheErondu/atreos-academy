@@ -56,8 +56,12 @@
                     </span> --}}
                     <!-- // END Navbar Search -->
 
-                    <div class="flex">
-                        <h3 style="color: whitesmoke;padding-top:0.7rem;">Today's date:<span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">event</span> {{ date('jS F, Y') }} <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">access_time</span>{{ date('h:ia') }}</h3>
+                    <div class="flex" style="display: flex;">
+                        <h3 style="color: whitesmoke; padding-top: 0.7rem; @media only screen and (max-width: 767px) { display: none; }">
+                            Today's date:
+                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">event</span> {{ date('jS F, Y') }}
+                            <span class="material-icons sidebar-menu-icon sidebar-menu-icon--left">access_time</span>{{ date('h:ia') }}
+                        </h3>
                     </div>
 
                     <!-- Navbar Menu -->
