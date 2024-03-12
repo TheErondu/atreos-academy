@@ -32337,6 +32337,13 @@ body {
     }
 }
 
+/* Add this media query to hide the element with the class 'mobile-hidden' on small screens */
+@media only screen and (max-width: 767px) {
+    .mobile-hidden {
+        display: none !important;
+    }
+}
+
 @media (max-width:991.98px) {
 
     .card-group--lg-up .card,
@@ -42540,4 +42547,23 @@ label {
     border-style: dashed !important;
     padding: 1rem;
     border-radius: .5rem
+}
+
+.scrollable-div {
+    height: 200px; /* Set your desired fixed height */
+    overflow-y: auto; /* Enable vertical scrolling */
+    border: 1px solid #ccc; /* Optional: Add a border for better visualization */
+}
+
+.my-16pt {
+    /* Assuming you have a class named "my-16pt" */
+    /* You can adjust the styles for this class as needed */
+    font-size: 16pt;
+    margin-bottom: 16px;
+}
+
+.text-70 {
+    /* Assuming you have a class named "text-70" */
+    /* You can adjust the styles for this class as needed */
+    color: #555;
 }

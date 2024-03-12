@@ -70,7 +70,11 @@
                             <div class="card-title mb-0">{{ $course->title }}</div>
                         </div>
                     </div>
-                    <p class="my-16pt text-70">{!! $course->description !!}</p>
+                    <br>
+                    <div class="scrollable-div">
+                        <p class="my-16pt text-70">{!! $course->description !!}</p>
+                    </div>
+                    <br>
                     <hr>
                     <div class="mb-16pt">
                         <strong>Lessons:</strong>

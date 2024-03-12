@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use App\DTOs\NotificationDetails;
 use App\Models\Enrollment;
 use App\Models\Question;
-use App\Models\Test;
 use App\Models\TestAnswer;
 use App\Notifications\EnrollmentCompleted;
 use Illuminate\Http\Request;
@@ -82,7 +81,7 @@ class TestAnswerController extends Controller
 
             $notificationDetails = new NotificationDetails(
                 'Congratulations!',
-                'You have successfully completed the test.',
+                'You have successfully completed the test for the course:'.$enrollment->course->title,
                 'View Results',
                 '/test-results',
                 'Your Score: ' . $enrollment->test_score . '/' . $question->course->test->test_score

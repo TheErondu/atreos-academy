@@ -1,11 +1,5 @@
 @extends('layouts.app')
-@push('styles')
-    <!-- Quill Theme -->
-    <link type="text/css" href="{{ asset('css/quill.css') }}" rel="stylesheet">
-    <!-- Select2 -->
-    <link type="text/css" href="{{ asset('vendor/select2/select2.min.css') }}" rel="stylesheet">
-    <link type="text/css" href="{{ asset('css/select2.css') }}" rel="stylesheet">
-@endpush
+
 @section('content')
     <div class="pt-32pt">
         <div
@@ -65,7 +59,7 @@
                     <div class="form-group mb-32pt">
 
                         @if ($lesson->document)
-                        <div id="adobe-dc-view" style="height: 320px; width: 480px;"></div>
+                        <div id="adobe-dc-view" style="height: 320px; width: 100%;"></div>
                         <script src="https://acrobatservices.adobe.com/view-sdk/viewer.js"></script>
                         <script type="text/javascript">
                           document.addEventListener("adobe_dc_view_sdk.ready", function(){
@@ -133,64 +127,3 @@
         </div>
     </div>
 @endsection
-@push('scripts')
-    <!-- Quill -->
-    <script src="{{ asset('vendor/quill.min.js') }}"></script>
-    <script src="{{ asset('js/quill.js') }}"></script>
-    <!-- Select2 -->
-    <script src="{{ asset('vendor/select2/select2.min.js') }}"></script>
-    <script src="{{ asset('js/select2.js') }}"></script>
-    <script defer>
-        var quill = new Quill('#content', {
-            theme: 'snow',
-            placeholder: 'Lesson content',
-        });
-
-        quill.on('text-change', function() {
-            document.getElementById('quill-html').value = quill.root.innerHTML;
-        });
-    </script>
-    <script>
-        $(document).ready(function() {
-            $('.js-example-basic-single').select2();
-        });
-    </script>
-
-    <script>
-        $(document).ready(function() {
-            // Listen for changes in the file input
-            $('#file').change(function() {
-                // Get the selected file
-                var file = $(this)[0].files[0];
-
-                // Display file name as label
-                $('.custom-file-label').text(file.name);
-
-                // Check if the file is a PDF
-                if (file.type === 'application/pdf') {
-                    // Use the file URL to embed a PDF preview
-                    var fileURL = URL.createObjectURL(file);
-                    // Set a specific height for the PDF preview (adjust as needed)
-                    var previewHeight = '400px';
-                    $('#document-preview').html('<embed src="' + fileURL + '" width="100%" height="' +
-                        previewHeight + '" />');
-                } else {
-                    // Display a message for non-PDF files
-                    $('#document-preview').html('<p class="text-danger">Selected file is not a PDF.</p>');
-                }
-            });
-            @if ($lesson->document)
-                // Check for existing PDF on page load
-                checkExistingPDF();
-            @endif
-        });
-
-        function checkExistingPDF() {
-            // Use a relative URL to the existing PDF file on the server
-            var existingPDFURL = "{{ asset('storage/lesson_documents/' . $lesson->document) }}";
-
-            // Display the existing PDF preview
-            $('#document-preview').html('<embed src="' + existingPDFURL + '" width="100%" height="400px" />');
-        }
-    </script>
-@endpush

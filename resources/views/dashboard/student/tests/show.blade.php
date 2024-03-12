@@ -9,7 +9,7 @@
                 <div class="nav-item navbar-list__item">
                     <div class="d-flex align-items-center flex-nowrap">
                         <div class="flex">
-                            <a href="student-take-course.html" class="card-title text-body mb-0">{{ $test->title }}</a>
+                            <a href="#" class="card-title text-body mb-0">{{ $test->title }}</a>
                         </div>
                     </div>
                 </div>
@@ -19,12 +19,12 @@
     @foreach ($questions as $key => $question)
         <div class="bg-primary pb-lg-64pt py-32pt">
             <div class="container-fluid page__container">
-                <p id="remaining-time-message" class="h1 text-white-50 font-weight-light m-0"></p>
+                <h5 id="remaining-time-message" style="color: #d48d08" class=" font-weight-light m-0"></h5>
                 <div class="d-flex flex-wrap align-items-end justify-content-end mb-16pt">
-                    <h1 class="text-white flex m-0">Question {{ $questions->currentPage() }} of {{$questions->lastPage()}}</h1>
+                    <p class="text-white flex m-0">Question {{ $questions->currentPage() }} of {{$questions->lastPage()}}</p>
 
                 </div>
-                <p class="hero__lead measure-hero-lead text-white-50">{{ $question->question }}</p>
+                <h2 class="hero__lead measure-hero-lead text-white">{{ $question->question }}</h2>
             </div>
         </div>
 
@@ -63,7 +63,7 @@
                     @foreach ($question->question_options as $key => $question_option)
                         <div class="form-group">
                             <div class="custom-control custom-radio">
-                                <input id="customRadio_{{ $key }}" name="answer" value="{{ $question_option }}"
+                                <input required id="customRadio_{{ $key }}" name="answer" value="{{ $question_option }}"
                                     type="radio" class="custom-control-input">
                                 <label for="customRadio_{{ $key }}"
                                     class="custom-control-label">{{ $question_option }}</label>
@@ -122,12 +122,10 @@
     function getRemainingTimeMessage(displayTime) {
         if (displayTime <= 0) {
             return 'Time is up!';
-        } else if (displayTime <= 60000) {
-            return 'Test Duration: Less than a minute remaining';
         } else {
             const seconds = Math.floor((displayTime % (1000 * 60)) / 1000);
             const minutes = Math.floor(displayTime / (1000 * 60));
-            return `Test Duration: ${minutes} ${minutes === 1 ? 'min' : 'mins'}, ${seconds} secs left`;
+            return `Remaining Time: ${minutes} ${minutes === 1 ? 'min' : 'mins'}, ${seconds} secs`;
         }
     }
 
